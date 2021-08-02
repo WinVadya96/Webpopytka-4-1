@@ -1,0 +1,66 @@
+﻿@using Webpopytka_4_1.Models.ViewModels;
+@model System.Collections.Generic.IEnumerable<UserViewModel>
+
+<style>
+    table#home_view-users__table tr, table#home_view-users__table th, table#home_view-users__table td {
+        border: 1px solid black;
+    }
+
+    table#home_view-users__table th, table#home_view-users__table td {
+        padding: 4px;
+    }
+</style>
+
+<div>All application users:</div>
+
+<div class="btn-toolbar" role="toolbar" aria-label="Tool">
+    <div class="btn-group" role="group" aria-label="Group">
+        <button type="button" class="btn btn-secondary">Block</button>
+        <button type="button" class="btn btn-secondary">Unblock</button>
+        <button type="button" class="btn btn-secondary">Delete</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (!$("#check_all").is(":checked"))
+            $(".checkbox").removeAttr("checked");
+        else
+            $(".checkbox").attr("checked", "checked");
+    });
+</script>
+
+<table id="home_view-users__table">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="check_all" /> <b>Выделить все</b>
+
+
+            </th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Registration Date</th>
+            <th>Last Login Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" , name="cheks" class="checkbox">
+                </td>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Email</td>
+                <td>@user.CreatedOn</td>
+                <td>@(user.LastLoginTime.HasValue ? user.LastLoginTime.ToString() : "User did not logged in") </td>
+                <td>@(user.IsLoggedIn ? "Logged in" : "Not logged in")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
